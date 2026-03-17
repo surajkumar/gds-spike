@@ -12,5 +12,11 @@
       "datasourceTemplate": "github-tags",
       "depNameTemplate": "surajkumar/gds-spike-releases-example"
     }
+  ],
+  "packageRules": [
+    {
+      "matchDepNames": ["surajkumar/gds-spike-releases-example"],
+      "versioning": "semver"
+    }
   ]
 }
