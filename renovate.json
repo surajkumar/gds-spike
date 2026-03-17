@@ -5,7 +5,7 @@
       "customType": "regex",
       "managerFilePatterns": ["/template\\.ya?ml$/"],
       "matchStrings": [
-        "ApplicationId:\\s*arn:aws:serverlessrepo:[^\\n]+\\s*\\n\\s*SemanticVersion:\\s*(?<currentValue>[0-9.]+)"
+        "SemanticVersion:\\s*(?<currentValue>[0-9.]+)"
       ],
       "datasourceTemplate": "github-tags",
       "depNameTemplate": "surajkumar/gds-spike-releases-example"
