@@ -22,7 +22,7 @@ jobs:
       - name: Assume temporary AWS role
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ vars.DEPLOYMENT_ROLE_ARN }}
+          role-to-assume: ${{ secrets.DEPLOYMENT_ROLE_ARN }}
           aws-region: eu-west-2
 
       - name: Get latest SAR version
