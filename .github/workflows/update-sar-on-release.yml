@@ -1,0 +1,46 @@
+name: Update SAR on release
+
+on:
+  repository_dispatch:
+    types:
+      - sar-comlams-released
+  workflow_dispatch:
+    inputs:
+      version:
+        description: SAR version to update to (e.g. 0.0.8)
+        required: true
+
+jobs:
+  update-sar-version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Resolve version
+        id: version
+        run: |
+          VERSION="${{ github.event.client_payload.version || inputs.version }}"
+          echo "version=${VERSION#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Update template.yaml
+        run: |
+          CURRENT=$(grep 'SemanticVersion:' infrastructure/template.yaml | awk '{print $2}')
+          sed -i "s/SemanticVersion: $CURRENT/SemanticVersion: ${{ steps.version.outputs.version }}/" infrastructure/template.yaml
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: update ComLams SAR version to ${{ steps.version.outputs.version }}"
+          branch: "auto/update-comlams-sar-${{ steps.version.outputs.version }}"
+          title: "chore: update ComLams SAR version to ${{ steps.version.outputs.version }}"
+          body: |
+            Updates the `ComLams` SAR stack version in `infrastructure/template.yaml` to `${{ steps.version.outputs.version }}`.
+
+            Triggered by a release event from `surajkumar/gds-spike-releases-example`.
+          labels: dependencies
+          delete-branch: true
