@@ -8,9 +8,10 @@
       "matchStrings": [
         "SemanticVersion:\\s*(?<currentValue>[0-9.]+)"
       ],
-      "autoReplaceStringTemplate": "SemanticVersion: {{newVersion}}",
+      "autoReplaceStringTemplate": "SemanticVersion: {{newValue}}",
       "datasourceTemplate": "github-tags",
-      "depNameTemplate": "surajkumar/gds-spike-releases-example"
+      "depNameTemplate": "surajkumar/gds-spike-releases-example",
+      "extractVersionTemplate": "^v?(?<version>.*)$"
     }
   ],
   "packageRules": [
