@@ -10,8 +10,7 @@
       ],
       "autoReplaceStringTemplate": "SemanticVersion: {{newValue}}",
       "datasourceTemplate": "github-tags",
-      "depNameTemplate": "surajkumar/gds-spike-releases-example",
-      "versioning": "semver"
+      "depNameTemplate": "surajkumar/gds-spike-releases-example"
     }
   ]
 }
